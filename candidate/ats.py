@@ -1,8 +1,8 @@
 import streamlit as st
 import io
 import streamlit_scrollable_textbox as stx
+from utility.text_extractor import TextExtractor
 
-from utility.text_extractor import extract_text
 # Initialize session state variables
 if "text_input" not in st.session_state:
     st.session_state.text_input = ""
@@ -28,7 +28,7 @@ elif input_method == "File Uploader":
     if uploaded_file is not None:
         Bytes = uploaded_file.read()
         stream = io.BytesIO(Bytes)
-        st.session_state.file_content = extract_text(file_path=uploaded_file.name,file_stream = Bytes)
+        st.session_state.file_content = TextExtractor().extract_text(file_path=uploaded_file.name,file_stream = Bytes)
     if st.session_state.file_content:
         user_input = st.session_state.file_content
 # Display result
